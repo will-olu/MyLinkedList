@@ -1,0 +1,255 @@
+import java.util.Scanner;
+
+/**
+ * A simple linked list class comprising nodes, each containing a
+ * String value and a pointer to the next node down the list. The
+ * class has two special nodes called head and tail, indicating its
+ * beginning and end. A integer field called size also provides a
+ * current count of how may nodes are in the chain.
+ *
+ * A list with size == 1, has only one node that is its tail and head
+ * at the same time:
+ *   head.next = null
+ *   head = tail
+ *
+ * A list with size == 2, has only a head and a tail node, such that
+ *   head.next = tail
+ *   tail.next = null
+ *
+ * Nodes are an inner class within OurLinkedList class.
+ */
+ 
+ 
+public class OurLinkedList {
+
+    /** The first node in the list. */
+    Node head;
+
+    /** The last node of the list. */
+    Node tail;
+
+    /** Number of nodes in the list. */
+    int size=0;
+
+    /**
+     * The node class
+     */
+    class Node {
+        /** The actual contents of the node */
+        String value;
+        /** The next node down the list */
+        Node next;
+        /**
+         * Basic constructor. The node's next node is always initialized
+         * to null, and determined later by the addNode method.
+         *
+         * @param v String value to be held by the node.
+         */
+        Node(String v) {
+            value = v;
+            next = null;
+        } // constructor Node
+    } // class Node
+
+    /**
+     * Accessor for the field size.
+     * @return number of nodes in the list.
+     */
+    public int getSize() {
+        return size;
+    } // method getSize
+
+    /**
+     * Method to determine if a node with a specific string, exists.
+     * @param v String to search for
+     * @return true if node with given string exists; false otherwise.
+     */
+    public boolean nodeExists(String v) {
+        // Initial assumption: no node found with string v
+        boolean stringFound = false;
+        // Start from the beginning.
+        Node currentNode = head;
+        if ( currentNode == null) {
+            // Empty list.
+            stringFound = false;
+        } else {
+            // List is not empty. Let's check if the last node contains
+            // string we are looking for. We do this here, because the
+            // last node is unreachable in a loop that terminates when
+            // .next == null.
+            stringFound = tail.value == v;
+            // Search through the rest of the linked list, hopping from
+            // node to node, following the .next pointer.
+            while (currentNode.next != null) {
+                if ( currentNode.value == v) {
+                    stringFound = true;
+                }
+                currentNode = currentNode.next;
+            }
+        }
+        return stringFound;
+    } // method nodeExists
+
+    /**
+     * Method to add a new node to the list. The node is always added to the
+     * end of the list and becomes its new tail. Before adding a node, we
+     * verify that the list does not contain another node with the same
+     * string value.
+     * @param v String value of new node.
+     */
+    public void addNode(String v) {
+        if (!nodeExists(v)) {
+            // The list does not contain a node with the given string.
+            // Let's create one and call it newNode.
+            Node newNode = new Node(v);
+            // We are adding this newNode to the list, so let's increase the size.
+            size++;
+            // Now we need to determine where to add this new node.
+            if (head == null) {
+                // List is empty. Make this newNode the list's head.
+                head = new Node(v);
+                // Because the list is empty, make this node its tail as well.
+                tail = head;
+            } else {
+                // The list is not empty. Find its tail node and add the
+                // newNode after it.
+                tail.next = newNode;
+                // Make the newNode, the list's new tail.
+                tail = newNode;
+            }
+        }
+    }
+///Problem 1///
+ class AdeLinkedList extends OurLinked( String [] q)
+ {
+	 //I need a list I am pretty sure to allow
+	 //I am trying to access the middle by just dividing the value and then getting the answer
+	 int mid = q.length/2;
+	 int adjustedMid = q.length/2 + 1;
+	 
+	 if (mid != 0)
+	 {
+		 ///here I need to be able to add String v;
+	 }
+	 
+	 else (q.length%2 == 0)
+	 {
+	/////I am trying to reat a method that can deal with both even and odd strings	 
+	 }
+ }
+ }
+  ////PROBLEM 2////
+ void printList( struct node *ptr) 
+{ 
+    while (ptr != NULL) 
+    { 
+        printf("%d->", ptr->v); 
+        ptr = ptr->next; 
+    } 
+    printf("NULL\n"); 
+} 
+
+////PROBLEM 4////
+  public void boolean swap(String s, String t) 
+    { 
+		boolean change = false;
+        // Nothing to do if s and t are same 
+        if (s == t) return; 
+  
+        // Search for t (keep track of prevX and CurrX) 
+        Node prevX = null, currX = head; 
+        while (currX != null && currX.v != s) 
+        { 
+            prevX = currX; 
+            currX = currX.next; 
+        } 
+  
+        // Search for y (keep track of prevY and currY) 
+        Node prevY = null, currY = head; 
+        while (currY != null && currY.v != t) 
+        { 
+            prevY = currY; 
+            currY = currY.next; 
+        } 
+  
+        // If either s or t is not present, nothing to do 
+        if (currX == null || currY == null) 
+            return ; 
+  
+        // If s is not head of linked list 
+        if (prevX != null) 
+            prevX.next = currY; 
+        else //make t the new head 
+            head = currY; 
+  
+        // If t is not head of linked list 
+        if (prevY != null) 
+            prevY.next = currX; 
+        else // make s the new head 
+            head = currX; 
+  
+        // Swap next pointers 
+        Node temp = currX.next; 
+        currX.next = currY.next; 
+        currY.next = temp; 
+    } 
+    /* if empty list is provided */
+    if (mid != NULL) 
+        printf("The middle element is [%d]\n\n", mid->v); 
+} return true;
+
+
+public void push(String new_data) 
+    { 
+        /* 1. alloc the Node and put the data */
+        Node new_Node = new Node(new_data); 
+  
+        /* 2. Make next of new Node as head */
+        new_Node.next = head; 
+  
+        /* 3. Move the head to point to new Node */
+        head = new_Node; 
+    } 
+  
+    public boolean remove(String v) {
+        boolean success = false;
+        if (nodeExists(v)) {
+            success = true;
+        }
+        return success;
+    }
+	///////////
+	///Problem 3////
+	////////////
+void removeNode(String key) 
+    { 
+        // Store head node 
+        Node temp = head, prev = null; 
+  
+        // If head node itself holds the key to be deleted 
+        if (temp != null && temp.v == key) 
+        { 
+            head = temp.next; // Changed head 
+            return; 
+        } 
+  
+        // Search for the key to be deleted, keep track of the 
+        // previous node as we need to change temp.next 
+        while (temp != null && temp.v != key) 
+        { 
+            prev = temp; 
+            temp = temp.next; 
+        }     
+  
+        // If key was not present in linked list 
+        if (temp == null) return; 
+  
+        // Unlink the node from linked list 
+        prev.next = temp.next; 
+    } 
+
+    public static void main(String[] args) {
+        OurLinkedList demo = new OurLinkedList();
+	}
+	
+}
